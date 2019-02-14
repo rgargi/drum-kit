@@ -3,17 +3,19 @@ var drumButtons = document.querySelectorAll(".drum");
 //Detecting Button Press
 drumButtons.forEach(function(b) {
   b.addEventListener("click", function() {
-    checkInput(b.innerHTML);
+    playSound(b.innerHTML);
+    animateButton(b.innerHTML);
   });
 });
 
 //Detecting Keyboard Press
 document.addEventListener("keydown", function(e) {
-  checkInput(e.key);
+  playSound(e.key);
+  animateButton(e.key);
 });
 
 //Make Sound according to the input
-function checkInput(key) {
+function playSound(key) {
   switch (key) {
     case "w":
       var tom1 = new Audio("sounds/tom-1.mp3");
@@ -53,4 +55,13 @@ function checkInput(key) {
     default:
       console.log(key);
   }
+}
+
+//Animating Buttons according to the input by adding and removing a class
+function animateButton(key) {
+  var activeButton = document.querySelector("." + key);
+  activeButton.classList.add("pressed");
+  setTimeout(function() {
+    activeButton.classList.remove("pressed");
+  }, 100);
 }
